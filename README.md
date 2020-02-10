@@ -1,6 +1,6 @@
 <h1 align="left">Lonchat</h1>
-<p align="left">
-    <img width="200" src="https://i.ibb.co/BffSz7j/lonchat-logo.png">
+<p align="center">
+    <img width="333" src="https://i.ibb.co/BffSz7j/lonchat-logo.png">
 </p>
 
 
