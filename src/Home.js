@@ -18,9 +18,9 @@ export default class Home extends React.Component {
             <View style={styles.container}>
 
                 <Button
-                    title="Go to profile screen"
+                    title="Go sudah gila kau yascreen"
                     onPress={() => navigate(
-                        'Profile', { name: 'qweqwewqe' }
+                        'Profile', { name: 'Jane' }
                     )}
                 />
                 
