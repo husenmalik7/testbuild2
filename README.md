@@ -39,5 +39,6 @@ lonchat or life on chat is a chatting app where we can chat with friend and see 
   <img src="https://img.shields.io/badge/Download%20on%20the-Google%20Drive-blue.svg?style=popout&logo=google-drive"/>
 </a>
 
-## Note
-make sure GPS active
+(note: make sure GPS activated)
+
+
