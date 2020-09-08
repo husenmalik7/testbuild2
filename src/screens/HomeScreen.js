@@ -103,7 +103,7 @@ export default class HomeScreen extends React.Component {
           )}
         />
 
-        {/* <Text>Sudah gila kau ya</Text> */}
+        
 
         <TouchableOpacity onPress={this._logOut}>
           <View style={{width: 111, height: 111, backgroundColor: 'red'}} />
