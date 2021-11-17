@@ -4,7 +4,6 @@ import MapView from 'react-native-maps';
 import Marker from 'react-native-maps';
 // import Modal, {ModalContent } from 'react-native-modals'
 
-
 import Geolocation from '@react-native-community/geolocation';
 import firebase from 'firebase';
 
@@ -20,20 +19,17 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // function
-    Geolocation.getCurrentPosition(info => {
-      console.log(info.coords.longitude);
-      console.log(info.coords.latitude);
+    Geolocation.getCurrentPosition((info) => {
       this.setState({
         longitude: info.coords.longitude,
         latitude: info.coords.latitude,
       });
     });
 
-    this.state.dbRef.on('child_added', val => {
-      console.log(val.val());
+    this.state.dbRef.on('child_added', (val) => {
       let temp = val.val();
 
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
           data: [...prevState.data, temp],
         };
@@ -43,8 +39,6 @@ export default class App extends React.Component {
 
   render() {
     return (
-    
-
       <MapView
         style={{flex: 1}}
         initialRegion={{
@@ -53,8 +47,6 @@ export default class App extends React.Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-        {console.log('hehehe', this.state.data)}
-
         {this.state.data.map((item, index) => (
           <MapView.Marker
             coordinate={{
@@ -68,7 +60,7 @@ export default class App extends React.Component {
                   : item.longitude,
             }}
             title={item.name}
-            description={item.bio == undefined ? "bio" : item.bio}
+            description={item.bio == undefined ? 'bio' : item.bio}
             // onPress={() => this.toggleModal}
           >
             <Image
@@ -86,7 +78,6 @@ export default class App extends React.Component {
           </MapView.Marker>
         ))}
       </MapView>
-      
     );
   }
 }

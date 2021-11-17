@@ -11,25 +11,23 @@ import HomeScreen from './src/screens/HomeScreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import ChatScreen from './src/screens/ChatScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
-import MapScreen from './src/screens/MapScreen'
+import MapScreen from './src/screens/MapScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
   Chat: ChatScreen,
   Map: MapScreen,
-  Register : RegisterScreen
+  Register: RegisterScreen,
 });
 
 AppStack.navigationOptions = ({navigation}) => {
   let tabBarVisible = navigation.state.index === 0;
 
-  return { 
-    tabBarVisible
-  }
-}
-
-
+  return {
+    tabBarVisible,
+  };
+};
 
 const AuthStack = createStackNavigator({Login: LoginScreen});
 
@@ -37,7 +35,7 @@ const TabNavigator = createBottomTabNavigator(
   {
     Chat: AppStack,
     Profile: ProfileScreen,
-    Map: MapScreen
+    Map: MapScreen,
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
@@ -68,7 +66,7 @@ const TabNavigator = createBottomTabNavigator(
       inactiveTintColor: 'gray',
       style: {
         backgroundColor: 'skyblue',
-      }
+      },
     },
   },
 );
@@ -85,9 +83,6 @@ export default createAppContainer(
     },
   ),
 );
-
-
-
 
 // import React from 'react';
 // import {View, Text} from 'react-native';

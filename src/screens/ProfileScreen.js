@@ -27,7 +27,7 @@ export default class ProfileScreen extends React.Component {
     upload: false,
   };
 
-  handleChange = key => val => {
+  handleChange = (key) => (val) => {
     this.setState({[key]: val});
   };
 
@@ -41,11 +41,10 @@ export default class ProfileScreen extends React.Component {
     }
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
-      name: User.name
-    })
-    
+      name: User.name,
+    });
   }
 
   changeImage = () => {
@@ -62,7 +61,7 @@ export default class ProfileScreen extends React.Component {
       },
     };
 
-    ImagePicker.showImagePicker(options, response => {
+    ImagePicker.showImagePicker(options, (response) => {
       if (response.error) {
         console.log(error);
       } else if (!response.didCancel) {
@@ -79,15 +78,11 @@ export default class ProfileScreen extends React.Component {
   };
 
   updateUser = () => {
-    firebase
-      .database()
-      .ref('users')
-      .child(User.phone)
-      .set(User);
+    firebase.database().ref('users').child(User.phone).set(User);
     Alert.alert('Success', 'change profile');
   };
 
-  updateUserImage = imageUrl => {
+  updateUserImage = (imageUrl) => {
     User.image = imageUrl;
 
     this.updateUser();
@@ -100,24 +95,22 @@ export default class ProfileScreen extends React.Component {
 
   uploadFile = async () => {
     const file = await this.uriToBlob(this.state.imageSource.uri);
-    console.log('apa nich');
-    console.log(file);
 
     firebase
       .storage()
       .ref(`profile_pictures/${User.phone}.png`)
       .put(file)
 
-      .then(snapshot => {
+      .then((snapshot) => {
         return snapshot.ref.getDownloadURL();
       })
 
-      .then(downloadURL => {
+      .then((downloadURL) => {
         console.log(`success upload file go to this  link ${downloadURL}`);
         this.updateUserImage(downloadURL);
       })
 
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           upload: false,
           imageSource: require('../assets/001.png'),
@@ -127,14 +120,14 @@ export default class ProfileScreen extends React.Component {
       });
   };
 
-  uriToBlob = uri => {
+  uriToBlob = (uri) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
+      xhr.onload = function () {
         resolve(xhr.response);
       };
 
-      xhr.onerror = function() {
+      xhr.onerror = function () {
         reject(new Error('Error while upload image'));
       };
 
@@ -146,7 +139,7 @@ export default class ProfileScreen extends React.Component {
 
   _logOut = async () => {
     await AsyncStorage.clear();
-    console.log('loougout');
+    console.log('you have logout');
     this.props.navigation.navigate('Auth');
   };
 

@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.state.dbRef.on('child_added', val => {
+    this.state.dbRef.on('child_added', (val) => {
       let person = val.val();
       person.phone = val.key;
 
@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
         User.name = person.name;
         User.image = person.image ? person.image : null;
       } else {
-        this.setState(prevState => {
+        this.setState((prevState) => {
           return {
             users: [...prevState.users, person],
           };
@@ -45,7 +45,6 @@ export default class HomeScreen extends React.Component {
 
   _logOut = async () => {
     await AsyncStorage.clear();
-    console.log('logoutkeun atuh');
     this.props.navigation.navigate('Auth');
   };
 
@@ -81,7 +80,7 @@ export default class HomeScreen extends React.Component {
           style={{height}} //if there is no style the object outside flatlist will be hidden
           data={this.state.users}
           renderItem={this.renderRow}
-          keyExtractor={item => item.phone}
+          keyExtractor={(item) => item.phone}
           ListHeaderComponent={() => (
             <View
               style={{
@@ -102,8 +101,6 @@ export default class HomeScreen extends React.Component {
             </View>
           )}
         />
-
-        
 
         <TouchableOpacity onPress={this._logOut}>
           <View style={{width: 111, height: 111, backgroundColor: 'red'}} />

@@ -32,7 +32,6 @@ export default class AuthLoadingScreen extends React.Component {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
-    
   }
 
   _bootstrapAsync = async () => {

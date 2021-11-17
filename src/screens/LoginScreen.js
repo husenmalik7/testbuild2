@@ -15,7 +15,6 @@ import styles from './style';
 
 console.disableYellowBox = true;
 
-
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     headerShown: false,
@@ -29,9 +28,7 @@ export default class LoginScreen extends React.Component {
   };
 
   componentDidMount() {
-    Geolocation.getCurrentPosition(info => {
-      console.log(info.coords.longitude, 'did mount login');
-      console.log(info.coords.latitude, 'did mount loginsss');
+    Geolocation.getCurrentPosition((info) => {
       this.setState({
         latitude: info.coords.latitude,
         longitude: info.coords.longitude,
@@ -39,7 +36,7 @@ export default class LoginScreen extends React.Component {
     });
   }
 
-  handleChange = key => val => {
+  handleChange = (key) => (val) => {
     this.setState({[key]: val});
   };
 
@@ -56,11 +53,7 @@ export default class LoginScreen extends React.Component {
     User.phone = this.state.phone;
     User.name = this.state.name;
 
-    firebase
-      .database()
-      .ref('users')
-      .child(User.phone)
-      .set(User);
+    firebase.database().ref('users').child(User.phone).set(User);
 
     this.props.navigation.navigate('App');
   };

@@ -20,7 +20,7 @@ import styles from './style';
 
 const isAndroid = Platform.OS === 'android';
 
-//bottom navigation, ganti warna jadi putih yang aktifnya
+//bottom navigation, change color to white
 
 export default class ChatScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -49,19 +49,19 @@ export default class ChatScreen extends React.Component {
   componentDidMount() {
     this.keyboardShowListener = Keyboard.addListener(
       isAndroid ? 'keyboardWillShow' : 'keyboardDidShow',
-      e => this.keyboardEvent(e, true),
+      (e) => this.keyboardEvent(e, true),
     );
 
     this.keyboardShowListener = Keyboard.addListener(
       isAndroid ? 'keyboardWillHide' : 'keyboardDidHide',
-      e => this.keyboardEvent(e, false),
+      (e) => this.keyboardEvent(e, false),
     );
 
     this.state.dbRef
       .child(User.phone)
       .child(this.state.person.phone)
-      .on('child_added', value => {
-        this.setState(prevState => {
+      .on('child_added', (value) => {
+        this.setState((prevState) => {
           return {
             messageList: [...prevState.messageList, value.val()],
           };
@@ -88,11 +88,11 @@ export default class ChatScreen extends React.Component {
     ]).start();
   };
 
-  handleChange = key => val => {
+  handleChange = (key) => (val) => {
     this.setState({[key]: val});
   };
 
-  convertTime = time => {
+  convertTime = (time) => {
     let d = new Date(time);
     let c = new Date();
     let result = (d.getHours() < 10 ? '0' : '') + d.getHours() + ':';
@@ -118,12 +118,10 @@ export default class ChatScreen extends React.Component {
         time: firebase.database.ServerValue.TIMESTAMP,
         from: User.phone,
       };
-      updates[
-        User.phone + '/' + this.state.person.phone + '/' + msgId
-      ] = message;
-      updates[
-        this.state.person.phone + '/' + User.phone + '/' + msgId
-      ] = message;
+      updates[User.phone + '/' + this.state.person.phone + '/' + msgId] =
+        message;
+      updates[this.state.person.phone + '/' + User.phone + '/' + msgId] =
+        message;
 
       this.state.dbRef.update(updates);
       this.setState({textMessage: ''});
@@ -179,25 +177,26 @@ export default class ChatScreen extends React.Component {
             paddingBottom: 10,
             // backgroundColor: 'red'
           }}>
-          <Animated.View style={[styles.bottomBar, {bottom: this.keyboardHeight}]}>
-          <View style={styles.chatScreenInput}>
-            <TextInput
-              value={this.state.textMessage}
-              placeholder="tulis pesan"
-              onChangeText={this.handleChange('textMessage')}
-            />
-          </View>
+          <Animated.View
+            style={[styles.bottomBar, {bottom: this.keyboardHeight}]}>
+            <View style={styles.chatScreenInput}>
+              <TextInput
+                value={this.state.textMessage}
+                placeholder="tulis pesan"
+                onChangeText={this.handleChange('textMessage')}
+              />
+            </View>
 
-          <View style={styles.chatScreenButton}>
-            <TouchableOpacity onPress={this.sendMessage}>
-              <Text
-                style={{
-                  color: 'white',
-                }}>
-                Send
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.chatScreenButton}>
+              <TouchableOpacity onPress={this.sendMessage}>
+                <Text
+                  style={{
+                    color: 'white',
+                  }}>
+                  Send
+                </Text>
+              </TouchableOpacity>
+            </View>
           </Animated.View>
         </View>
       </View>

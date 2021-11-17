@@ -35,20 +35,17 @@ export default class RegisterScreen extends React.Component {
   };
 
   componentDidMount() {
-    Geolocation.getCurrentPosition(info => {
-      console.log(info.coords.longitude, 'did mount login');
-      console.log(info.coords.latitude, 'did mount loginsss');
+    Geolocation.getCurrentPosition((info) => {
       this.setState({
         latitude: info.coords.latitude,
         longitude: info.coords.longitude,
       });
     });
 
-    this.state.dbRef.on('child_added', val => {
-      // console.log(val.val());
+    this.state.dbRef.on('child_added', (val) => {
       let temp = val.val();
 
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
           data: [...prevState.data, temp],
         };
@@ -56,7 +53,7 @@ export default class RegisterScreen extends React.Component {
     });
   }
 
-  handleChange = key => val => {
+  handleChange = (key) => (val) => {
     this.setState({[key]: val});
   };
 
@@ -75,13 +72,6 @@ export default class RegisterScreen extends React.Component {
     await AsyncStorage.setItem('userPhone', this.state.phone);
     await AsyncStorage.setItem('userName', this.state.name);
     User.phone = this.state.phone;
-    console.log(this.state.data)
-    
-
-    
-    console.log(this.state.phone);
-    console.log(this.state.name)
-    
 
     let i = 0;
     let check = 1;
@@ -91,7 +81,6 @@ export default class RegisterScreen extends React.Component {
         .toLowerCase()
         .localeCompare(this.state.data[i].phone);
 
-        console.log(this.state.data[i].phone)
       if (check == 0) {
         point = point + 1;
       }
@@ -99,23 +88,13 @@ export default class RegisterScreen extends React.Component {
       i = i + 1;
     }
 
-    console.log(point, 'yourpoint')
-
     if (point == 0) {
-      firebase
-      .database()
-      .ref('users')
-      .child(User.phone)
-      .set(User);
+      firebase.database().ref('users').child(User.phone).set(User);
 
-    this.props.navigation.navigate('Login');
-
-
+      this.props.navigation.navigate('Login');
     } else {
-      Alert.alert('email already taken')
+      Alert.alert('email already taken');
     }
-
-    
   };
 
   render() {
